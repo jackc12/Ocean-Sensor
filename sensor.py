@@ -43,6 +43,8 @@ conductivity = ConductivitySensor('Conductivity Sensor')
 conductivity_connected, conductivity_closed = False, False
 while not conductivity_connected:
     conductivity_connected = conductivity.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
+    print('tried connecting')
 conductivity.do_sample(n_samples=6, interval=10)
 while not conductivity_closed:
     conductivity_closed = conductivity.close()
+    print('tried closing')
