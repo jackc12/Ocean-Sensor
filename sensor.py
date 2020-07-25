@@ -1,9 +1,9 @@
-import serial, time, datetime 
+import serial, time, datetime
 
 class Sensor:
-    def __init__(self, name):
+    def __init__(self, name='Generic Sensor Class'):
         print('instance of {} created'.format(name))
-    def connect(self, port, baudrate, timeout):
+    def connect(self, port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5):
         try:
             self.ser = serial.Serial(port=port, baudrate=baudrate, timeout=timeout)
             self.ser.flushInput()
@@ -11,7 +11,16 @@ class Sensor:
         except:
             print('failed connect') 
             return False    
-    def do_sample(self, n_samples, interval):
+    def close(self):
+        try:
+            self.ser.close()
+            return True
+        except:
+            print('failed close')
+            return False
+
+class OxygenSensor(Sensor):
+    def do_sample(self, n_samples=6, interval=10):
         for _ in range(n_samples):
             cond_and_temp = ''
             while 'Conductivity:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
@@ -25,13 +34,10 @@ class Sensor:
             with open('cond_and_temp.txt', 'a') as f:
                 f.write('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
             time.sleep(interval)
-    def close(self):
-        try:
-            self.ser.close()
-            return True
-        except:
-            print('failed close')
-            return False
+
+class OtherSensor(Sensor):
+    def other_command(self):
+        print('I will do the command for the other sensor')
 
 oxygen = Sensor('oxygen sensor')
 oxygen_connected, oxygen_closed = False, False
