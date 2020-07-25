@@ -1,6 +1,4 @@
-import serial
-import time
-import datetime
+import serial, time, datetime 
 
 class Sensor:
     def __init__(self, name):
