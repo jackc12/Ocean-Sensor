@@ -35,7 +35,7 @@ class Sensor:
             print('failed close')
             return False
 
-oxygen = Sensor('oxygen')
+oxygen = Sensor('oxygen sensor')
 oxygen_connected, oxygen_closed = False, False
 while not oxygen_connected:
     oxygen_connected = oxygen.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
