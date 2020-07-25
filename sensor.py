@@ -19,7 +19,7 @@ class Sensor:
             print('failed close')
             return False
 
-class OxygenSensor(Sensor):
+class ConductivitySensor(Sensor):
     def do_sample(self, n_samples=6, interval=10):
         for _ in range(n_samples):
             cond_and_temp = ''
@@ -35,14 +35,14 @@ class OxygenSensor(Sensor):
                 f.write('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
             time.sleep(interval)
 
-class OtherSensor(Sensor):
+class OxygenSensor(Sensor):
     def other_command(self):
-        print('I will do the command for the other sensor')
+        print('I will do the command for the oxygen sensor')
 
-oxygen = OxygenSensor('aanderaa oxygen octode sensor 3830')
-oxygen_connected, oxygen_closed = False, False
-while not oxygen_connected:
-    oxygen_connected = oxygen.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
-oxygen.do_sample(n_samples=6, interval=10)
-while not oxygen_closed:
-    oxygen_closed = oxygen.close()
+conductivity = ConductivitySensor('Conductivity Sensor')
+conductivity_connected, conductivity_closed = False, False
+while not conductivity_connected:
+    conductivity_connected = conductivity.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
+conductivity.do_sample(n_samples=6, interval=10)
+while not conductivity_closed:
+    conductivity_closed = conductivity.close()
