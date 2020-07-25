@@ -3,3 +3,5 @@ Conductivity: -0.0212 Temperature: 24.359
 Conductivity: -0.0212 Temperature: 24.361
 Conductivity: -0.0209 Temperature: 24.334
 Conductivity: -0.0210 Temperature: 24.331
+Conductivity: -0.0205 Temperature: 24.274
+Conductivity: -0.0207 Temperature: 24.272
