@@ -5,9 +5,9 @@ import datetime
 class Sensor:
     def __init__(self, name):
         print('instance of {} created'.format(name))
-    def connect(self):
+    def connect(self, port, baudrate, timeout):
         try:
-            self.ser = serial.Serial(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
+            self.ser = serial.Serial(port=port, baudrate=baudrate, timeout=timeout)
             self.ser.flushInput()
             return True
         except:
@@ -35,10 +35,10 @@ class Sensor:
             print('failed close')
             return False
 
-oxygen = Sensor()
+oxygen = Sensor('oxygen')
 oxygen_connected, oxygen_closed = False, False
 while not oxygen_connected:
-    oxygen_connected = oxygen.connect()
+    oxygen_connected = oxygen.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
 oxygen.do_sample(n_samples=6, interval=10)
 while not oxygen_closed:
     oxygen_closed = oxygen.close()
