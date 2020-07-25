@@ -39,7 +39,7 @@ class OtherSensor(Sensor):
     def other_command(self):
         print('I will do the command for the other sensor')
 
-oxygen = OxygenSensor('oxygen sensor')
+oxygen = OxygenSensor('aanderaa oxygen octode sensor 3830')
 oxygen_connected, oxygen_closed = False, False
 while not oxygen_connected:
     oxygen_connected = oxygen.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
