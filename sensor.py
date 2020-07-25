@@ -22,7 +22,7 @@ class Sensor:
             except:
                 print('failed do_sample')
         with open('cond_and_temp.txt', 'a') as f:
-                f.write('Conductivity: {} Temperature: {}\n'.format(cond_and_temp.split()[1], cond_and_temp.split()[3]))
+            f.write('Conductivity: {} Temperature: {}\n'.format(cond_and_temp.split()[1], cond_and_temp.split()[3]))
     def close(self):
         self.ser.close()
 
