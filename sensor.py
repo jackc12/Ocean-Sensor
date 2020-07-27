@@ -8,10 +8,10 @@ class Sensor:
             self.ser = serial.Serial(port=port, baudrate=baudrate, timeout=timeout)
             self.ser.flushInput()
             return True
-        except:
+        except Exception as e:
             print('failed to connect')
-            with open('error.txt') as f:
-                f.write('failed to connect at {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            with open('error.txt', 'a') as f:
+                f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             return False    
     def disconnect(self):
         try:
