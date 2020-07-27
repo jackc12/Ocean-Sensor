@@ -46,13 +46,13 @@ class OxygenSensor(Sensor):
         print('I will do the command for the oxygen sensor')
 
 
-start_time = time.time()
+start_time = time.time() + 10
 conductivity = ConductivitySensor('Conductivity Sensor')
 conductivity_connected, conductivity_closed = False, False
-while not conductivity_connected or time.time() >= start_time:
+while not conductivity_connected and time.time() >= start_time:
     conductivity_connected = conductivity.connect(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5)
     print('tried connecting')
 conductivity.do_sample(n_samples=6, interval=10)
-while not conductivity_closed or time.time() >= start_time:
+while not conductivity_closed and time.time() >= start_time:
     conductivity_closed = conductivity.disconnect()
     print('tried closing')
