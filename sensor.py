@@ -11,7 +11,7 @@ class Sensor:
         except Exception as e:
             print('failed to connect')
             with open('error.txt', 'a') as f:
-                f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+                f.write('{} {} at {}'.format('error in connect:', e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             return False    
     def disconnect(self):
         try:
@@ -20,7 +20,7 @@ class Sensor:
         except Exception as e:
             print('failed to disconnect')
             with open('error.txt', 'a') as f:
-                f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+                f.write('{} {} at {}'.format('error in disconnect:', e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             return False
 
 class ConductivitySensor(Sensor):
@@ -36,7 +36,8 @@ class ConductivitySensor(Sensor):
                 except Exception as e:
                     print('failed do_sample')
                     with open('error.txt', 'a') as f:
-                        f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+                        f.write('{} {} at {}'.format('error in do_sample:', e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+                    quit()
             with open('cond_and_temp.txt', 'a') as f:
                 f.write('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
             time.sleep(interval)
