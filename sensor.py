@@ -9,7 +9,9 @@ class Sensor:
             self.ser.flushInput()
             return True
         except:
-            print('failed to connect') 
+            print('failed to connect')
+            with open('error.txt') as f:
+                f.write('failed to connect at {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             return False    
     def disconnect(self):
         try:
