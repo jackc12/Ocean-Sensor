@@ -9,14 +9,14 @@ class Sensor:
             self.ser.flushInput()
             return True
         except:
-            print('failed connect') 
+            print('failed to connect') 
             return False    
-    def close(self):
+    def disconnect(self):
         try:
             self.ser.close()
             return True
         except:
-            print('failed close')
+            print('failed to disconnect')
             return False
 
 class ConductivitySensor(Sensor):
@@ -46,5 +46,5 @@ while not conductivity_connected:
     print('tried connecting')
 conductivity.do_sample(n_samples=6, interval=10)
 while not conductivity_closed:
-    conductivity_closed = conductivity.close()
+    conductivity_closed = conductivity.disconnect()
     print('tried closing')
