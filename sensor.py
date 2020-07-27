@@ -17,8 +17,10 @@ class Sensor:
         try:
             self.ser.close()
             return True
-        except:
+        except Exception as e:
             print('failed to disconnect')
+            with open('error.txt', 'a') as f:
+                f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             return False
 
 class ConductivitySensor(Sensor):
@@ -31,8 +33,10 @@ class ConductivitySensor(Sensor):
                     self.ser.write(bytes('\r\n','utf-8'))
                     self.ser_bytes = self.ser.readline()
                     cond_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
-                except:
+                except Exception as e:
                     print('failed do_sample')
+                    with open('error.txt', 'a') as f:
+                        f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             with open('cond_and_temp.txt', 'a') as f:
                 f.write('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
             time.sleep(interval)
