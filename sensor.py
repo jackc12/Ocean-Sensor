@@ -12,7 +12,7 @@ class Sensor:
             print('failed to connect')
             with open('error.txt', 'a') as f:
                 f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-            return False    
+            break    
     def disconnect(self):
         try:
             self.ser.close()
@@ -21,7 +21,7 @@ class Sensor:
             print('failed to disconnect')
             with open('error.txt', 'a') as f:
                 f.write('{} at {}'.format(e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-            return False
+            break
 
 class ConductivitySensor(Sensor):
     def do_sample(self, n_samples=6, interval=10):
