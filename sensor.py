@@ -23,7 +23,7 @@ class Sensor:
                 self.e = e
         if failed_connection:
             write_file(f_name='error.txt', msg='{} {} at {}'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-            print('wrote\n\n{}\n\nto error.txt'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            print('wrote\n\n{}\n\nto error.txt'.format(' '.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))))
             quit()
     def disconnect(self):
         end_at = time.time() + self.wait_for
@@ -37,7 +37,7 @@ class Sensor:
                 self.e = e
         if failed_disconnect:
             write_file(f_name='error.txt', msg='{} {} at {}'.format('error in disconnect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-            print('wrote\n\n{}\n\nto error.txt'.format('error in disconnect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            print('wrote\n\n{}\n\nto error.txt'.format(' '.format('error in disconnect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))))
             quit()
 
 class ConductivitySensor(Sensor):
@@ -59,11 +59,11 @@ class ConductivitySensor(Sensor):
                         self.e = e
                 if failed_conductivity:
                     write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-                    print('wrote\n\n{}\n\nto error.txt'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+                    print('wrote\n\n{}\n\nto error.txt'.format(' '.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))))
                     quit()
                 else:
                     write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
-                    print('wrote\n\n{}\n\nto cond_and_temp.txt'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
+                    print('wrote\n\n{}\n\nto cond_and_temp.txt'.format(' '.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3])))
                 time.sleep(interval)
 
 class OxygenSensor(Sensor):
