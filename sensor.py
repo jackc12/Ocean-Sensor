@@ -18,6 +18,7 @@ class Sensor:
                 self.ser = serial.Serial(port=self.port, baudrate=self.baudrate, timeout=self.timeout)
                 self.ser.flushInput()
                 failed_connection = False
+                break
             except Exception as e:
                 failed_connection = True
                 self.e = e
@@ -32,6 +33,7 @@ class Sensor:
             try:
                 self.ser.close()
                 failed_disconnect = False
+                break
             except Exception as e:
                 failed_disconnect = True
                 self.e = e
@@ -54,6 +56,7 @@ class ConductivitySensor(Sensor):
                         self.ser_bytes = self.ser.readline()
                         cond_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
                         failed_conductivity = False
+                        break
                     except Exception as e:
                         failed_conductivity = True
                         self.e = e
