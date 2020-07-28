@@ -5,7 +5,7 @@ def write_file(f_name='error.txt', msg='you didn\'t pass any arguments to write_
         f.write(msg)
 
 class Sensor:
-    def __init__(self, port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5, wait_for=10):
+    def __init__(self, port='COM6', baudrate='9600', timeout=5, wait_for=10):
         self.port = port
         self.baudrate = baudrate
         self.timeout = timeout
@@ -71,7 +71,7 @@ class OxygenSensor(Sensor):
         print('I will do the command for the oxygen sensor')
 
 
-conductivity = ConductivitySensor(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5, wait_for=5)
+conductivity = ConductivitySensor(port='COM6', baudrate='9600', timeout=5, wait_for=5)
 conductivity.connect()
 conductivity.do_sample(n_samples=6, interval=10)
 
