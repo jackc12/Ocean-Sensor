@@ -71,7 +71,7 @@ class OxygenSensor(Sensor):
         print('I will do the command for the oxygen sensor')
 
 
-conductivity = ConductivitySensor(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5, wait_for=10)
+conductivity = ConductivitySensor(port='/dev/cu.usbserial-1410', baudrate='9600', timeout=5, wait_for=5)
 conductivity.connect()
 conductivity.do_sample(n_samples=6, interval=10)
 
