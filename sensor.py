@@ -38,7 +38,7 @@ class Sensor:
                 failed_disconnect = True
                 self.e = e
         if failed_disconnect:
-            write_file(f_name='error.txt', msg='{} {} at {}'.format('error in disconnect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+            write_file(f_name='error.txt', msg='{} {} at {}'.format(self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             print('wrote to error.txt! error in disconnect!')
             quit()
 
