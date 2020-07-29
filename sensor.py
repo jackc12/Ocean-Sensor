@@ -81,6 +81,6 @@ class OxygenSensor(Sensor):
 
 conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
 conductivity.connect(wait_for=5)
-conductivity.do_sample(n_samples=6, interval=10, wait_for=10)
+conductivity.do_sample(n_samples=6, interval=2, wait_for=10)
 
 conductivity.disconnect(wait_for=5)
