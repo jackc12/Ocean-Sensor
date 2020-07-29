@@ -48,7 +48,7 @@ class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
 		self.wait_for = wait_for
 		for _ in range(n_samples):
-			cond_and_temp = ''
+			cond_and_temp = 'empty!'
 			self.e = 'len(cond_and_temp) < 4'
 			end_at = time.time() + self.wait_for
 			failed_conductivity = True
@@ -59,13 +59,12 @@ class ConductivitySensor(Sensor):
 						self.ser.write(bytes('\r\n','utf-8'))
 						self.ser_bytes = self.ser.readline()
 						cond_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
-						print(cond_and_temp)
 						failed_conductivity = False
 						break
 					except Exception as e:
 						failed_conductivity = True
 						self.e = e
-				print(do_sample)
+				print(cond_and_temp)
 				if failed_conductivity or len(cond_and_temp.split()) < 4:
 					write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 					print('wrote to error.txt! error in Conductivity.get_sample!')
