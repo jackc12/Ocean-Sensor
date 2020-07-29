@@ -46,6 +46,7 @@ class ConductivitySensor(Sensor):
     def do_sample(self, n_samples=6, interval=10):
         for _ in range(n_samples):
             cond_and_temp = ''
+            self.e = 'len(cond_and_temp) < 4'
             end_at = time.time() + self.wait_for
             failed_conductivity = True
             while time.time() <= end_at:
@@ -61,7 +62,7 @@ class ConductivitySensor(Sensor):
                     except Exception as e:
                         failed_conductivity = True
                         self.e = e
-                if failed_conductivity or len(cond_and_temp) >= 4:
+                if failed_conductivity or len(cond_and_temp) < 4:
                     write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
                     print('wrote to error.txt! error in Conductivity.get_sample!')
                     quit()
