@@ -10,7 +10,8 @@ class Sensor:
         self.baudrate = baudrate
         self.timeout = timeout
         self.wait_for = wait_for
-    def connect(self):
+    def connect(self, wait_for):
+    	self.wait_for = wait_for
         end_at = time.time() + self.wait_for
         failed_connection = True
         while time.time() <= end_at:
@@ -26,7 +27,8 @@ class Sensor:
             write_file(f_name='error.txt', msg='{} {} at {}'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
             print('wrote to error.txt! error in connect!')
             quit()
-    def disconnect(self):
+    def disconnect(self, wait_for):
+    	self.wait_for = wait_for
         end_at = time.time() + self.wait_for
         failed_disconnect = True
         while time.time() <= end_at:
@@ -43,7 +45,8 @@ class Sensor:
             quit()
 
 class ConductivitySensor(Sensor):
-    def do_sample(self, n_samples=6, interval=10):
+    def do_sample(self, n_samples=6, interval=10, wait_for):
+    	self.wait_for = wait_for
         for _ in range(n_samples):
             cond_and_temp = ''
             self.e = 'len(cond_and_temp) < 4'
@@ -77,7 +80,7 @@ class OxygenSensor(Sensor):
 
 
 conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-conductivity.connect()
-conductivity.do_sample(n_samples=6, interval=10)
+conductivity.connect(wait_for=5)
+conductivity.do_sample(n_samples=6, interval=10, wait_for=10)
 
-conductivity.disconnect()
+conductivity.disconnect(wait_for=5)
