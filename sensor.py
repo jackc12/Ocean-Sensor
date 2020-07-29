@@ -52,7 +52,7 @@ class ConductivitySensor(Sensor):
 			self.e = 'len(cond_and_temp) < 4'
 			end_at = time.time() + self.wait_for
 			failed_conductivity = True
-            while time.time() <= end_at:
+			while time.time() <= end_at:
             	while 'Conductivity:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
             		try:
 						self.ser.write(bytes('do sample','utf-8'))
