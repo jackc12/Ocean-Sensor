@@ -55,6 +55,7 @@ class ConductivitySensor(Sensor):
                         self.ser.write(bytes('\r\n','utf-8'))
                         self.ser_bytes = self.ser.readline()
                         cond_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
+                        print(cond_and_temp)
                         failed_conductivity = False
                         break
                     except Exception as e:
