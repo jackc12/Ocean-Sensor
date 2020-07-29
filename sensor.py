@@ -10,7 +10,7 @@ class Sensor:
 		self.baudrate = baudrate
 		self.timeout = timeout
 		self.wait_for = wait_for
-	def connect(self, wait_for):
+	def connect(self, wait_for=5):
 		self.wait_for = wait_for
 		end_at = time.time() + self.wait_for
 		failed_connection = True
@@ -27,7 +27,7 @@ class Sensor:
 		    write_file(f_name='error.txt', msg='{} {} at {}'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 		    print('wrote to error.txt! error in connect!')
 		    quit()
-	def disconnect(self, wait_for):
+	def disconnect(self, wait_for=5):
 		self.wait_for = wait_for
 		end_at = time.time() + self.wait_for
 		failed_disconnect = True
@@ -45,7 +45,7 @@ class Sensor:
 			quit()
 
 class ConductivitySensor(Sensor):
-	def do_sample(self, n_samples=6, interval=10, wait_for):
+	def do_sample(self, n_samples=6, interval=5, wait_for=10):
 		self.wait_for = wait_for
 		for _ in range(n_samples):
 			cond_and_temp = ''
