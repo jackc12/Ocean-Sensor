@@ -61,7 +61,7 @@ class ConductivitySensor(Sensor):
                     except Exception as e:
                         failed_conductivity = True
                         self.e = e
-                if failed_conductivity:
+                if failed_conductivity or cond_and_temp == '':
                     write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
                     print('wrote to error.txt! error in Conductivity.get_sample!')
                     quit()
