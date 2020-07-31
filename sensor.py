@@ -48,13 +48,13 @@ class Sensor:
 class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
 		self.n_samples = n_samples
-		self.taken_samples = 0
+		self.written_samples = 0
 		self.wait_for = wait_for
 		cond_and_temp = 'empty!'
 		self.e = 'len(cond_and_temp) < 4'
 		end_at = time.time() + self.wait_for
 		failed_conductivity = True
-		while time.time() <= end_at or self.taken_samples < self.n_samples or cond_and_temp.split() <= 4:
+		while time.time() <= end_at and self.taken_samples < self.n_samples and cond_and_temp.split() <= 4:
 			while 'Conductivity:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
 				try:
 					self.ser.flushInput()
@@ -74,7 +74,7 @@ class ConductivitySensor(Sensor):
 			else:
 				write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 				print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
-				self.taken_samples += 1
+				self.written_samples += 1
 			time.sleep(interval)
 
 class OxygenSensor(Sensor):
