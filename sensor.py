@@ -11,6 +11,7 @@ class Sensor:
 		self.timeout = timeout
 		self.wait_for = wait_for
 	def connect(self, wait_for=5):
+		print('YAH')
 		self.wait_for = wait_for
 		end_at = time.time() + self.wait_for
 		failed_connection = True
@@ -80,6 +81,7 @@ class ConductivitySensor(Sensor):
 
 class OxygenSensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
+		print('OK')
 		self.n_samples = n_samples
 		self.written_samples = 0
 		self.wait_for = wait_for
