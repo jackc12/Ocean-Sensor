@@ -96,6 +96,7 @@ class OxygenSensor(Sensor):
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
 					sat_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
+					print(sat_and_temp)
 					failed_conductivity = False
 					break
 				except Exception as e:
@@ -107,7 +108,6 @@ class OxygenSensor(Sensor):
 				quit()
 			else:
 				if len(sat_and_temp.split()) >= 4:
-					print()
 					write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[1], sat_and_temp.split()[3]))
 					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[1], sat_and_temp.split()[3]))
 					self.written_samples += 1
