@@ -68,7 +68,7 @@ class ConductivitySensor(Sensor):
 					failed_conductivity = True
 					self.e = e
 			if failed_conductivity:
-				write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+				write_file(f_name='error.txt', msg='{} {} at {}\n'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 				print('wrote to error.txt! error in Conductivity.get_sample!')
 				quit()
 			else:
@@ -79,12 +79,45 @@ class ConductivitySensor(Sensor):
 			time.sleep(interval)
 
 class OxygenSensor(Sensor):
-	def other_command(self):
-		print('I will do the command for the oxygen sensor')
+	def do_sample(self, n_samples=6, interval=5, wait_for=10):
+		self.n_samples = n_samples
+		self.written_samples = 0
+		self.wait_for = wait_for
+		cond_and_temp = 'empty!'
+		self.e = 'len(cond_and_temp) < 4'
+		end_at = time.time() + self.wait_for
+		failed_conductivity = True
+		while time.time() <= end_at and self.written_samples < self.n_samples:
+			while 'Oxygen:' not in cond_and_temp and 'Saturation:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
+				try:
+					self.ser.flushInput()
+					self.ser.write(bytes('do sample','utf-8'))
+					self.ser.write(bytes('\r\n','utf-8'))
+					self.ser_bytes = self.ser.readline()
+					cond_and_temp = ' '.join(self.ser_bytes[:-2].decode('utf-8').strip().split()[-4:]) + '\n'
+					failed_conductivity = False
+					break
+				except Exception as e:
+					failed_conductivity = True
+					self.e = e
+			if failed_conductivity:
+				write_file(f_name='error.txt', msg='{} {} at {}\n'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+				print('wrote to error.txt! error in Conductivity.get_sample!')
+				quit()
+			else:
+				if len(cond_and_temp.split()) >= 4:
+					write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
+					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
+					self.written_samples += 1
+			time.sleep(interval)
 
 
-conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-conductivity.connect(wait_for=5)
-conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
+# conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+# conductivity.connect(wait_for=5)
+# conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
+# conductivity.disconnect(wait_for=5)
 
-conductivity.disconnect(wait_for=5)
+oxygen = OxygenSensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+oxygen.connect(wait_for=5)
+oxygen.do_sample(n_samples=6, interval=3, wait_for=40)
+oxygen.disconnect(wait_for=5)
