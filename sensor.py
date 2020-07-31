@@ -76,7 +76,7 @@ class ConductivitySensor(Sensor):
 				print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 				self.n_samples += 1
 			time.sleep(interval)
-	print(self.n_samples)		
+		print(self.n_samples)		
 
 class OxygenSensor(Sensor):
 	def other_command(self):
