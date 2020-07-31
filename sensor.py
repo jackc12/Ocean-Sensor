@@ -29,6 +29,7 @@ class Sensor:
 		    quit()
 	def disconnect(self, wait_for=5):
 		self.wait_for = wait_for
+		self.ser.flushInput()
 		end_at = time.time() + self.wait_for
 		failed_disconnect = True
 		while time.time() <= end_at:
@@ -47,6 +48,7 @@ class Sensor:
 class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
 		self.wait_for = wait_for
+		self.ser.flushInput()
 		for _ in range(n_samples):
 			cond_and_temp = 'empty!'
 			self.e = 'len(cond_and_temp) < 4'
@@ -66,7 +68,7 @@ class ConductivitySensor(Sensor):
 						failed_conductivity = True
 						self.e = e
 				print(cond_and_temp)
-				if failed_conductivity or len(cond_and_temp.split()) != 4:
+				if failed_conductivity or len(cond_and_temp.split()) <= 4:
 					write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 					print('wrote to error.txt! error in Conductivity.get_sample!')
 					quit()
