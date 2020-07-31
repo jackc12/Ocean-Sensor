@@ -48,7 +48,7 @@ class Sensor:
 class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
 		self.n_samples = n_samples
-		self.taken_samples
+		self.taken_samples = 0
 		self.wait_for = wait_for
 		self.ser.flushInput()
 		cond_and_temp = 'empty!'
