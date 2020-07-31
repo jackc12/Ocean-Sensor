@@ -65,7 +65,7 @@ class ConductivitySensor(Sensor):
 						failed_conductivity = False
 						break
 					except Exception as e:
-						print(e)
+						print('Exception was:', e)
 						failed_conductivity = True
 						self.e = e
 				print(cond_and_temp)
