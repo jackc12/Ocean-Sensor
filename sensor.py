@@ -54,7 +54,7 @@ class ConductivitySensor(Sensor):
 		self.e = 'len(cond_and_temp) < 4'
 		end_at = time.time() + self.wait_for
 		failed_conductivity = True
-		while time.time() <= end_at and self.written_samples < self.n_samples and cond_and_temp.split() <= 4:
+		while time.time() <= end_at and self.written_samples < self.n_samples and len(cond_and_temp.split()) <= 4:
 			while 'Conductivity:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
 				try:
 					self.ser.flushInput()
