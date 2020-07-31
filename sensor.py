@@ -89,6 +89,7 @@ class OxygenSensor(Sensor):
 		end_at = time.time() + self.wait_for
 		failed_conductivity = True
 		while time.time() <= end_at and self.written_samples < self.n_samples:
+			print(sat_and_temp)
 			while 'Oxygen:' not in sat_and_temp and 'Saturation:' not in sat_and_temp and 'Temperature:' not in sat_and_temp:
 				try:
 					self.ser.flushInput()
