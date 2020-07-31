@@ -47,6 +47,7 @@ class Sensor:
 
 class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
+		num = 0
 		self.wait_for = wait_for
 		self.ser.flushInput()
 		for _ in range(n_samples):
@@ -67,7 +68,6 @@ class ConductivitySensor(Sensor):
 					except Exception as e:
 						failed_conductivity = True
 						self.e = e
-				print(cond_and_temp)
 				if failed_conductivity:
 					write_file(f_name='error.txt', msg='{} {} at {}'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 					print('wrote to error.txt! error in Conductivity.get_sample!')
@@ -75,7 +75,9 @@ class ConductivitySensor(Sensor):
 				else:
 					write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
+					num += 1
 				time.sleep(interval)
+		print(num)		
 
 class OxygenSensor(Sensor):
 	def other_command(self):
