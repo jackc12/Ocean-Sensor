@@ -65,6 +65,7 @@ class ConductivitySensor(Sensor):
 						failed_conductivity = False
 						break
 					except Exception as e:
+						print(e)
 						failed_conductivity = True
 						self.e = e
 				print(cond_and_temp)
@@ -82,7 +83,7 @@ class OxygenSensor(Sensor):
 		print('I will do the command for the oxygen sensor')
 
 
-conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+conductivity = ConductivitySensor(port='COM6', baudrate='9600', timeout=5, wait_for=5)
 conductivity.connect(wait_for=5)
 conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
 
