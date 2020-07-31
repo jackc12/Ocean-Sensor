@@ -33,7 +33,6 @@ class Sensor:
 		failed_disconnect = True
 		while time.time() <= end_at:
 			try:
-				self.ser.flushInput()
 				self.ser.close()
 				failed_disconnect = False
 				break
