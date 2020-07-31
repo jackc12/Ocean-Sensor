@@ -72,7 +72,7 @@ class ConductivitySensor(Sensor):
 				print('wrote to error.txt! error in Conductivity.get_sample!')
 				quit()
 			else:
-				print(cond_and_temp)
+				# print(cond_and_temp)
 				write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 				print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 				self.taken_samples += 1
