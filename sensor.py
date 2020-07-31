@@ -24,7 +24,7 @@ class Sensor:
 		        failed_connection = True
 		        self.e = e
 		if failed_connection:
-			print(e)
+			print(self.e)
 			write_file(f_name='error.txt', msg='{} {} at {}'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 			print('wrote to error.txt! error in connect!')
 			quit()
