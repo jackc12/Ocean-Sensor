@@ -98,9 +98,7 @@ class OxygenSensor(Sensor):
 					self.ser.write(bytes('do sample','utf-8'))
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
-					sat_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-5:]) + '\n'
-					print(sat_and_temp.split())
-					print(sat_and_temp.split()[-5::2])
+					sat_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-5::2]) + '\n'
 					failed_conductivity = False
 					break
 				except Exception as e:
@@ -112,8 +110,8 @@ class OxygenSensor(Sensor):
 				quit()
 			else:
 				if len(sat_and_temp.split()) >= 5:
-					write_file(f_name='oxygen.txt', msg='{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[2], sat_and_temp.split()[4]))
-					print('{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[2], sat_and_temp.split()[4]))
+					write_file(f_name='oxygen.txt', msg='{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[1], sat_and_temp.split()[2]))
+					print('{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[1], sat_and_temp.split()[2]))
 					self.written_samples += 1
 			time.sleep(interval)
 		time.sleep(2)
