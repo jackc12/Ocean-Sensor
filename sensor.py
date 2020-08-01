@@ -48,7 +48,7 @@ class Sensor:
 		time.sleep(2)
 
 class ConductivitySensor(Sensor):
-	def do_sample(self, n_samples=6, interval=5, wait_for=10):
+	def do_sample(self, n_samples=6, interval=5, wait_for=10, metrics=['Conductivity: ', 'Temperature: ']):
 		self.n_samples = n_samples
 		self.written_samples = 0
 		self.wait_for = wait_for
@@ -57,14 +57,16 @@ class ConductivitySensor(Sensor):
 		end_at = time.time() + self.wait_for
 		failed_conductivity = True
 		while time.time() <= end_at and self.written_samples < self.n_samples:
-			while [metric not in cond_and_temp for metric in ['Conductivity: ', 'Temperature: ']]:
+			while [metric not in cond_and_temp for metric in metrics]:
 				try:
 					self.ser.flushInput()
 					self.ser.write(bytes('do sample','utf-8'))
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
 					read = self.ser_bytes.decode('utf-8').strip()
-					print('LOOK HERE', read[read.find('Conductivity:') + len('Conductivity:'):read.find('Temperature:')].strip())
+					for i in range(len(metrics)):
+						print('LOOK HERE:', read[read.find(metrics[i]) + len(metrics[i]):read.find(metrics[i+1])].strip())
+					# print('LOOK HERE:', read[read.find('Conductivity:') + len('Conductivity:'):read.find('Temperature:')].strip())
 					cond_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
 					failed_conductivity = False
 					break
