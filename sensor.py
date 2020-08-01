@@ -117,12 +117,12 @@ class OxygenSensor(Sensor):
 		time.sleep(2)
 
 
-# conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-# conductivity.connect(wait_for=5)
-# conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
-# conductivity.disconnect(wait_for=5)
+conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+conductivity.connect(wait_for=5)
+conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
+conductivity.disconnect(wait_for=5)
 
-oxygen = OxygenSensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-oxygen.connect(wait_for=5)
-oxygen.do_sample(n_samples=6, interval=3, wait_for=40)
-oxygen.disconnect(wait_for=5)
+# oxygen = OxygenSensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+# oxygen.connect(wait_for=5)
+# oxygen.do_sample(n_samples=6, interval=3, wait_for=40)
+# oxygen.disconnect(wait_for=5)
