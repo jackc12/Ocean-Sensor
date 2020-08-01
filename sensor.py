@@ -64,7 +64,7 @@ class ConductivitySensor(Sensor):
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
 					read = self.ser_bytes.decode('utf-8').strip()
-					print('LOOK HERE', read[read.find('Conductivity') + len('Conductivity'):read.find('Temperature')])
+					print('LOOK HERE', read[read.find('Conductivity') + len('Conductivity'):read.find('Temperature')].strip())
 					cond_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
 					failed_conductivity = False
 					break
