@@ -111,6 +111,7 @@ class OxygenSensor(Sensor):
 				print('wrote to error.txt! error in Conductivity.get_sample!')
 				quit()
 			else:
+				print(sat_and_temp)
 				if len(sat_and_temp.split()) != 3:
 					write_file(f_name='oxygen.txt', msg='{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[1], sat_and_temp.split()[2]))
 					print('{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[1], sat_and_temp.split()[2]))
