@@ -67,7 +67,7 @@ class ConductivitySensor(Sensor):
 					a = []
 					for i in range(len(metrics) - 1):
 						a.append(read[read.find(metrics[i]) + len(metrics[i]):read.find(metrics[i+1])].strip())
-					print(a)
+					print('Look here:', a)
 					# print('LOOK HERE:', read[read.find('Conductivity:') + len('Conductivity:'):read.find('Temperature:')].strip())
 					cond_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
 					failed_conductivity = False
