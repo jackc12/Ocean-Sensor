@@ -64,7 +64,7 @@ class ConductivitySensor(Sensor):
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
 					read = self.ser_bytes.decode('utf-8').strip()
-					print(read[read.find('Conductivity'):])
+					print('LOOK HERE', read[read.find('Conductivity'):])
 					cond_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
 					failed_conductivity = False
 					break
@@ -78,7 +78,7 @@ class ConductivitySensor(Sensor):
 			else:
 				if len(cond_and_temp.split()) == 2:
 					write_file(f_name='cond_and_temp.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[0], cond_and_temp.split()[1]))
-					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[0], cond_and_temp.split()[1]))
+					# print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[0], cond_and_temp.split()[1]))
 					self.written_samples += 1
 			time.sleep(interval)
 		time.sleep(2)
