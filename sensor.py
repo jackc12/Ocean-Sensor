@@ -57,13 +57,13 @@ class ConductivitySensor(Sensor):
 		end_at = time.time() + self.wait_for
 		failed_conductivity = True
 		while time.time() <= end_at and self.written_samples < self.n_samples:
-			while [i not in cond_and_temp for i in ['Conductivity', 'Temperature']]:
-			# while 'Conductivity:' not in cond_and_temp and 'Temperature:' not in cond_and_temp:
+			while [metric not in cond_and_temp for metric in ['Conductivity: ', 'Temperature: ']]:
 				try:
 					self.ser.flushInput()
 					self.ser.write(bytes('do sample','utf-8'))
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
+					print(self.ser_bytes.decode('utf-8').strip())
 					cond_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
 					failed_conductivity = False
 					break
