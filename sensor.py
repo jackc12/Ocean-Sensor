@@ -27,6 +27,7 @@ class Sensor:
 			write_file(f_name='error.txt', msg='{} {} at {}'.format('error in connect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 			print('wrote to error.txt! error in connect!')
 			quit()
+		time.sleep(2)
 	def disconnect(self, wait_for=5):
 		self.wait_for = wait_for
 		self.ser.flushInput()
@@ -44,6 +45,7 @@ class Sensor:
 			write_file(f_name='error.txt', msg='{} {} at {}'.format(self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 			print('wrote to error.txt! error in disconnect!')
 			quit()
+		time.sleep(2)
 
 class ConductivitySensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
@@ -77,6 +79,7 @@ class ConductivitySensor(Sensor):
 					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), cond_and_temp.split()[1], cond_and_temp.split()[3]))
 					self.written_samples += 1
 			time.sleep(interval)
+		time.sleep(2)
 
 class OxygenSensor(Sensor):
 	def do_sample(self, n_samples=6, interval=5, wait_for=10):
@@ -113,6 +116,7 @@ class OxygenSensor(Sensor):
 					print('{} Oxygen: {} Saturation: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sat_and_temp.split()[0], sat_and_temp.split()[2], sat_and_temp.split()[4]))
 					self.written_samples += 1
 			time.sleep(interval)
+		time.sleep(2)
 
 
 # conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
