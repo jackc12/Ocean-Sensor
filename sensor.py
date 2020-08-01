@@ -97,7 +97,7 @@ class OxygenSensor(Sensor):
 					self.ser_bytes = self.ser.readline()
 					sat_and_temp = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-5:]) + '\n'
 					print(sat_and_temp.split())
-					print(sat_and_temp.split()[-5:])
+					print(sat_and_temp.split()[-5::2])
 					failed_conductivity = False
 					break
 				except Exception as e:
