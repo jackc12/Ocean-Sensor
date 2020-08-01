@@ -65,7 +65,7 @@ class ConductivitySensor(Sensor):
 					self.ser_bytes = self.ser.readline()
 					read = self.ser_bytes.decode('utf-8').strip()
 					a = []
-					for i in range(len(metrics) - 1):
+					for i in range(len(metrics)):
 						a.append(read[read.find(metrics[i]) + len(metrics[i]):read.find(metrics[i+1])].strip())
 					print('Look here:', a, len(a))
 					# print('LOOK HERE:', read[read.find('Conductivity:') + len('Conductivity:'):read.find('Temperature:')].strip())
