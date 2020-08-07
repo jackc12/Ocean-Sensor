@@ -42,7 +42,7 @@ class Sensor:
 				failed_disconnect = True
 				self.e = e
 		if failed_disconnect:
-			write_file(f_name='error.txt', msg='{} {} at {}'.format(self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+			write_file(f_name='error.txt', msg='{} {} at {}'.format('error in disconnect:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 			print('wrote to error.txt! error in disconnect!')
 			quit()
 		time.sleep(2)
@@ -87,3 +87,6 @@ sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interv
 #Oxygen
 sensor.do_sample(data_names=['Oxygen', 'Saturation', 'Temperature'], n_samples=6, interval=3, wait_for=40)
 sensor.disconnect(wait_for=5)
+
+
+while 'Oxygen:' not in sat_and_temp and 'Saturation:' not in sat_and_temp and 'Temperature:' not in sat_and_temp:
