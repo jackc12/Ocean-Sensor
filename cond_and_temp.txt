@@ -1,5 +1,0 @@
-Conductivity: -0.0202 Temperature: 24.150
-Conductivity: -0.0202 Temperature: 24.148
-Conductivity: -0.0207 Temperature: 24.150
-Conductivity: -0.0209 Temperature: 24.150
-Conductivity: -0.0205 Temperature: 24.150
