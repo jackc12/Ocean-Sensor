@@ -48,7 +48,7 @@ class Sensor:
 		time.sleep(2)
 
 class ConductivitySensor(Sensor):
-	def do_sample(self, n_samples=6, interval=5, wait_for=10):
+	def do_sample(self, data_names=['Conductivity', 'Temperature'], n_samples=6, interval=5, wait_for=10):
 		self.n_samples = n_samples
 		self.written_samples = 0
 		self.wait_for = wait_for
@@ -118,7 +118,7 @@ class OxygenSensor(Sensor):
 
 conductivity = ConductivitySensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
 conductivity.connect(wait_for=5)
-conductivity.do_sample(n_samples=6, interval=3, wait_for=40)
+conductivity.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interval=3, wait_for=40)
 conductivity.disconnect(wait_for=5)
 
 # oxygen = OxygenSensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
