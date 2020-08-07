@@ -1,7 +1,7 @@
-import serial, time, datetime
+import serial, time, datetime, os
 
 def write_file(f_name='error.txt', msg='you didn\'t pass any arguments to write_file'):
-	with open(f_name, 'a') as f:
+	with open('{}/{}'.format(os.getcwd(), f_name), 'a') as f:
 		f.write(msg)
 
 class Sensor:
