@@ -80,12 +80,10 @@ class Sensor:
 		time.sleep(2)
 
 
-conductivity = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-conductivity.connect(wait_for=5)
-conductivity.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interval=3, wait_for=40)
-conductivity.disconnect(wait_for=5)
-
-# oxygen = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
-# oxygen.connect(wait_for=5)
-# oxygen.do_sample(n_samples=6, interval=3, wait_for=40)
-# oxygen.disconnect(wait_for=5)
+sensor = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
+sensor.connect(wait_for=5)
+#Conductivity
+sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interval=3, wait_for=40)
+#Oxygen
+sensor.do_sample(data_names=['Oxygen', 'Saturation', 'Temperature'], n_samples=6, interval=3, wait_for=40)
+sensor.disconnect(wait_for=5)
