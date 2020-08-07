@@ -87,6 +87,3 @@ sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interv
 #Oxygen
 sensor.do_sample(data_names=['Oxygen', 'Saturation', 'Temperature'], n_samples=6, interval=3, wait_for=40)
 sensor.disconnect(wait_for=5)
-
-
-while 'Oxygen:' not in sat_and_temp and 'Saturation:' not in sat_and_temp and 'Temperature:' not in sat_and_temp:
