@@ -46,7 +46,7 @@ class Sensor:
 			print('wrote to error.txt! error in disconnect!')
 			quit()
 		time.sleep(2)
-	def do_sample(self, data_names=['Conductivity', 'Temperature'], n_samples=6, interval=5, wait_for=10):
+	def do_sample(self, data_names=['Conductivity:', 'Temperature:'], n_samples=6, interval=5, wait_for=10):
 		self.n_samples = n_samples
 		self.written_samples = 0
 		self.wait_for = wait_for
@@ -61,7 +61,7 @@ class Sensor:
 					self.ser.write(bytes('do sample','utf-8'))
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
-					sensor_data = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-3::2]) + '\n'
+					sensor_data = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-1*(len(data_names)-1)*2-1::2]) + '\n'
 					failed_conductivity = False
 					break
 				except Exception as e:
@@ -69,12 +69,12 @@ class Sensor:
 					self.e = e
 			if failed_conductivity:
 				write_file(f_name='error.txt', msg='{} {} at {}\n'.format('error in do_sample:', self.e, datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-				print('wrote to error.txt! error in Conductivity.get_sample!')
+				print('wrote to error.txt! error in get_sample!')
 				quit()
 			else:
-				if len(sensor_data.split()) == 2:
-					write_file(f_name='sensor_data.txt', msg='{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sensor_data.split()[0], sensor_data.split()[1]))
-					print('{} Conductivity: {} Temperature: {}\n'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), sensor_data.split()[0], sensor_data.split()[1]))
+				if len(sensor_data.split()) == len(data_names):
+					write_file(f_name='sensor_data.txt', msg='{} {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), ' '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data)) for data_point in data_tuple])))
+					print('{} {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), ' '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data)) for data_point in data_tuple])))
 					self.written_samples += 1
 			time.sleep(interval)
 		time.sleep(2)
@@ -83,7 +83,7 @@ class Sensor:
 sensor = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
 sensor.connect(wait_for=5)
 #Conductivity
-sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interval=3, wait_for=40)
+sensor.do_sample(data_names=['Conductivity:', 'Temperature:'], n_samples=6, interval=3, wait_for=40)
 #Oxygen
-sensor.do_sample(data_names=['Oxygen', 'Saturation', 'Temperature'], n_samples=6, interval=3, wait_for=40)
+sensor.do_sample(data_names=['Oxygen:', 'Saturation:', 'Temperature:'], n_samples=6, interval=3, wait_for=40)
 sensor.disconnect(wait_for=5)
