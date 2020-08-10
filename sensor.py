@@ -62,10 +62,6 @@ class Sensor:
 					self.ser.write(bytes('\r\n','utf-8'))
 					self.ser_bytes = self.ser.readline()
 					sensor_data = ' '.join(self.ser_bytes.decode('utf-8').strip().split()[-1*(len(data_names)-1)*2-1::2])
-					print('sensor data: ', sensor_data.split())
-					# print(list(zip(data_names, sensor_data.split())))
-					# print('\n\n\n\nfull:\n')
-					print(' '.join([str(data_point) for data_tuple in list(zip(list(map(lambda x: x + ':', data_names)), sensor_data.split())) for data_point in data_tuple]))
 					failed_conductivity = False
 					break
 				except Exception as e:
@@ -77,8 +73,8 @@ class Sensor:
 				quit()
 			else:
 				if len(sensor_data.split()) == len(data_names):
-					write_file(f_name='sensor_data.txt', msg='{} {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), ' '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data)) for data_point in data_tuple])))
-					# print('{} {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), ' '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data)) for data_point in data_tuple])))
+					write_file(f_name='sensor_data.txt', msg='{} {}'.format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), ' '.join([str(data_point) for data_tuple in list(zip(list(map(lambda x: x + ':', data_names)), sensor_data.split())) for data_point in data_tuple])))
+					print(' '.join([str(data_point) for data_tuple in list(zip(list(map(lambda x: x + ':', data_names)), sensor_data.split())) for data_point in data_tuple]))
 					self.written_samples += 1
 			time.sleep(interval)
 		time.sleep(2)
