@@ -65,7 +65,7 @@ class Sensor:
 					print('sensor data: ', sensor_data.split())
 					# print(list(zip(data_names, sensor_data.split())))
 					# print('\n\n\n\nfull:\n')
-					print(': '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data.split())) for data_point in data_tuple]))
+					print(' '.join([str(data_point) for data_tuple in list(zip(data_names, sensor_data.split())) for data_point in data_tuple]))
 					failed_conductivity = False
 					break
 				except Exception as e:
