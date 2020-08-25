@@ -1,0 +1,21 @@
+{% from "_formhelpers.html" import render_field %}
+<h1>Welcome!</h1>
+<h1>This site is for some research shit!</h1>
+<p>First time users should calibrate both sensors! blah blah blah i don't give fuck what this says</p>
+<form method=post>
+  <dl>
+  	<h2>Conductivity</h2>
+  	<a href='/conductivity_calibrated'>
+  		<button name='cond_button' type='button' value='clicked' onclick="alert('Conductivity sensor calibrated!')">Calibrate Conductivity</button>
+  	</a>
+    {{ render_field(form.conductivity_interval) }}
+    {{ render_field(form.conductivity_n_samples) }}
+    <h2>Oxygen</h2>
+    <a href='/oxygen_calibrated'>
+  		<button name='cond_button' type='button' value='clicked' onclick="alert('Oxygen sensor calibrated!')">Calibrate Oxygen</button>
+  	</a>
+    {{ render_field(form.oxygen_interval) }}
+    {{ render_field(form.oxygen_n_samples) }}
+  </dl>
+  <p><input type=submit value='Update Settings'>
+</form>
