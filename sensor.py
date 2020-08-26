@@ -1,4 +1,4 @@
-import serial, time, datetime
+import serial, time, datetime, requests
 
 def write_file(f_name='error.txt', msg='you didn\'t pass any arguments to write_file'):
 	with open('/home/pi/Ocean-Sensor/' + f_name, 'a') as f:
@@ -79,11 +79,12 @@ class Sensor:
 			time.sleep(interval)
 		time.sleep(2)
 
+settings = requests.get('http://127.0.0.1:5000/data').json()
 
 sensor = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
 sensor.connect(wait_for=5)
 #Conductivity
-sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=6, interval=3, wait_for=40)
+sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=settings['conductivity']['n_samples'], interval=settings['conductivity']['interval'], wait_for=40)
 #Oxygen
 # sensor.do_sample(data_names=['Oxygen', 'Saturation', 'Temperature'], n_samples=6, interval=3, wait_for=40)
 sensor.disconnect(wait_for=5)
