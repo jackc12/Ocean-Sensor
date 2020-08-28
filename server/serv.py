@@ -18,8 +18,8 @@ max_cond_interval, max_cond_n_samples, max_oxygen_interval, max_oxygen_n_samples
 class RegistrationForm(Form):
     conductivity_interval = DecimalField(label='Sample Interval (should be an integer):', validators=[validators.NumberRange(min=0, max=max_cond_interval, message='between 0 and {}'.format(max_cond_interval))])
     conductivity_n_samples = DecimalField(label='Number of Samples (should be an integer):', validators=[validators.NumberRange(min=0, max=max_cond_n_samples, message='between 0 and {}'.format(max_cond_n_samples))])
-    oxygen_interval = DecimalField(label='interval:', validators=[validators.NumberRange(min=0, max=max_oxygen_interval, message='between 0 and {}'.format(max_oxygen_interval))])
-    oxygen_n_samples = DecimalField(label='number of samples:', validators=[validators.NumberRange(min=0, max=max_oxygen_n_samples, message='between 0 and {}'.format(max_oxygen_n_samples))])
+    oxygen_interval = DecimalField(label='Sample Interval (should be an integer):', validators=[validators.NumberRange(min=0, max=max_oxygen_interval, message='between 0 and {}'.format(max_oxygen_interval))])
+    oxygen_n_samples = DecimalField(label='Number of Samples (should be an integer):', validators=[validators.NumberRange(min=0, max=max_oxygen_n_samples, message='between 0 and {}'.format(max_oxygen_n_samples))])
 
 
 from flask import Flask, request, render_template, redirect
