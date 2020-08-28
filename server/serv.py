@@ -47,6 +47,15 @@ def register():
 
     return render_template('register.html', form=form)
 
+@app.route('/cond', methods=['GET', 'POST'])
+def cond():
+    form = RegistrationForm(request.form)
+    if request.method == 'POST' and form.validate():
+        data_dict['conductivity']['interval'] = float(form.conductivity_interval.data)
+        data_dict['conductivity']['n_samples'] = float(form.conductivity_n_samples.data)
+def data():
+    return data_dict
+
 @app.route('/data', methods=['GET', 'POST'])
 def data():
     return data_dict
