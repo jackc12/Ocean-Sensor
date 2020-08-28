@@ -16,8 +16,8 @@ data_dict = {
 max_cond_interval, max_cond_n_samples, max_oxygen_interval, max_oxygen_n_samples = 2000, 3000, 3000, 8000
 
 class RegistrationForm(Form):
-    conductivity_interval = DecimalField(label='interval:', validators=[validators.NumberRange(min=0, max=max_cond_interval, message='between 0 and {}'.format(max_cond_interval))])
-    conductivity_n_samples = DecimalField(label='number of samples:', validators=[validators.NumberRange(min=0, max=max_cond_n_samples, message='between 0 and {}'.format(max_cond_n_samples))])
+    conductivity_interval = DecimalField(label='Sample Interval (should be an integer):', validators=[validators.NumberRange(min=0, max=max_cond_interval, message='between 0 and {}'.format(max_cond_interval))])
+    conductivity_n_samples = DecimalField(label='Number of Samples (should be an integer):', validators=[validators.NumberRange(min=0, max=max_cond_n_samples, message='between 0 and {}'.format(max_cond_n_samples))])
     oxygen_interval = DecimalField(label='interval:', validators=[validators.NumberRange(min=0, max=max_oxygen_interval, message='between 0 and {}'.format(max_oxygen_interval))])
     oxygen_n_samples = DecimalField(label='number of samples:', validators=[validators.NumberRange(min=0, max=max_oxygen_n_samples, message='between 0 and {}'.format(max_oxygen_n_samples))])
 
@@ -47,14 +47,6 @@ def register():
 
     return render_template('register.html', form=form)
 
-@app.route('/cond', methods=['GET', 'POST'])
-def cond():
-    form = RegistrationForm(request.form)
-    if request.method == 'POST' and form.validate():
-        data_dict['conductivity']['interval'] = float(form.conductivity_interval.data)
-        data_dict['conductivity']['n_samples'] = float(form.conductivity_n_samples.data)
-def data():
-    return data_dict
 
 @app.route('/data', methods=['GET', 'POST'])
 def data():
