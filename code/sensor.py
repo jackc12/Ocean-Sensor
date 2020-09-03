@@ -48,7 +48,7 @@ class Sensor:
 			print('wrote to error.txt! error in disconnect!')
 			quit()
 		time.sleep(2)
-		
+
 	def do_sample(self, data_names=['Conductivity', 'Temperature'], n_samples=6, interval=5, wait_for=10):
 		self.n_samples = n_samples
 		self.written_samples = 0
@@ -96,7 +96,7 @@ class Sensor:
 				print('wrote to error.txt! error in get_sample!')
 				quit()
 			else:
-				requests.put(url='http://127.0.0.1:5000/data/{}'.format(sensor), data={'calibrate': 'false'})
+				requests.put(url='http://127.0.0.1:5000/data/{}'.format(sensor), data={'calibrate': False})
 
 
 settings = requests.get(url='http://127.0.0.1:5000/data').json()
