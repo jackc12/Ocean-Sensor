@@ -49,11 +49,11 @@ def pilog2020():
 
 
 @app.route('/data', methods=['GET'])
-def get_data(sensor):
-    return data_dict[sensor]
+def get_data():
+    return data_dict
 
 
-@app.route('/data/<sensor>', methods=['PUT'])
+@app.route('/data/<sensor>', methods=['GET', 'PUT'])
 def post_data(sensor):
     if request.method == 'PUT':
         data_dict[sensor]['calibrate'] = False if request.form['calibrate'] else True
