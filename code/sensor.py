@@ -103,7 +103,7 @@ settings = requests.get(url='http://127.0.0.1:5000/data').json()
 
 sensor = Sensor(port='/dev/ttyUSB0', baudrate='9600', timeout=5, wait_for=5)
 sensor.connect(wait_for=5)
-sensor.calibrate(sensor='oxygen', should_calibrate=settings['oxygen']['calibrate'])
+sensor.do_calibrate(sensor='oxygen', should_calibrate=settings['oxygen']['calibrate'])
 #Conductivity
 sensor.do_sample(data_names=['Conductivity', 'Temperature'], n_samples=settings['conductivity']['n_samples'], interval=settings['conductivity']['interval'], wait_for=40)
 #Oxygen
