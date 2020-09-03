@@ -26,12 +26,12 @@ from flask import Flask, request, render_template, redirect
 app = Flask(__name__)
 
 @app.route('/conductivity_calibrated')
-def yah():
+def conductivity_calibrated():
     data_dict['conductivity']['calibrate'] = True
     return redirect('/')
 
 @app.route('/oxygen_calibrated')
-def woah():
+def oxygen_calibrated():
     data_dict['oxygen']['calibrate'] = True
     return redirect('/')
 
@@ -48,9 +48,12 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/data', methods=['GET', 'POST'])
-def data():
-    return data_dict
+@app.route('/data/<sensor>', methods=['GET', 'PUT'])
+def data(sensor):
+    if request.method == 'PUT':
+        print('yah', request.form['calibrate'])
+        data_dict[sensor]['calibrate'] = request.form['calibrate']
+    return data_dict[sensor]
 
 
 if __name__ == "__main__":
