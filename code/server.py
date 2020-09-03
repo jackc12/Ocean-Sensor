@@ -37,7 +37,7 @@ def oxygen_calibrated():
 
 
 @app.route('/', methods=['GET', 'POST'])
-def register():
+def pilog2020():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         data_dict['conductivity']['interval'] = float(form.conductivity_interval.data)
@@ -45,11 +45,16 @@ def register():
         data_dict['oxygen']['interval'] = float(form.oxygen_interval.data)
         data_dict['oxygen']['n_samples'] = float(form.oxygen_n_samples.data)
 
-    return render_template('register.html', form=form)
+    return render_template('pilog2020.html', form=form)
 
 
-@app.route('/data/<sensor>', methods=['GET', 'PUT'])
-def data(sensor):
+@app.route('/data', methods=['GET'])
+def get_data(sensor):
+    return data_dict[sensor]
+
+
+@app.route('/data/<sensor>', methods=['PUT'])
+def post_data(sensor):
     if request.method == 'PUT':
         data_dict[sensor]['calibrate'] = False if request.form['calibrate'] else True
     return data_dict[sensor]
