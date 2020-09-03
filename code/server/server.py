@@ -51,7 +51,6 @@ def register():
 @app.route('/data/<sensor>', methods=['GET', 'PUT'])
 def data(sensor):
     if request.method == 'PUT':
-        print('yah', request.form['calibrate'])
         data_dict[sensor]['calibrate'] = request.form['calibrate']
     return data_dict[sensor]
 
